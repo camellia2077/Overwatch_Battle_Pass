@@ -1,5 +1,4 @@
 # 导入所有需要的库
-# 引入了mss截图，并重构了OCR逻辑以避免重复
 import pyautogui
 import pydirectinput
 import time
@@ -52,7 +51,7 @@ class OCRWatcher:
         # 返回详细结果，供不同场景使用
         return self.reader.readtext(threshold_img) 
 
-    def wait_for_text(self, target_text, monitor_region, retry_interval=1.25): # 增加默认检测间隔
+    def wait_for_text(self, target_text, monitor_region, retry_interval=1.25): # 检测间隔
         print(f"\n[观察者] 开始监控屏幕区域 {monitor_region}...")
         print(f"等待检测到文字与 '{target_text}' 的相似度高于 {self.threshold*100}%")
         while True:
@@ -137,7 +136,7 @@ class PyAutoGuiExecutor:
 # 4. “退出者”类
 # ==============================================================================
 class GameExiter:
-    """负责执行一整套智能退出流程的类。"""
+    """负责执行退出流程的类。"""
     def __init__(self, watcher, executor, steps_config):
         self.watcher = watcher 
         self.executor = executor
@@ -206,7 +205,7 @@ class GameStarter:
 
 
 # ==============================================================================
-# 6. 主程序入口 (已更新)
+# 6. 主程序入口
 # ==============================================================================
 if __name__ == '__main__':
     main_watcher = OCRWatcher(similarity_threshold=SIMILARITY_THRESHOLD)
