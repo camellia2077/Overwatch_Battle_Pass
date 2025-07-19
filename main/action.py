@@ -101,19 +101,19 @@ class ActionExecutor:
             time.sleep(random.uniform(0.005, 0.015))
     def run_action_sequence(self):
         print("\n--- [PDI执行者] 开始执行游戏内动作序列 ---")
-        time.sleep(0.5)
+        #time.sleep(0.5)
         self.human_like_press('shift')
-        time.sleep(random.uniform(0.2, 0.4))
-        move_distance = random.randint(190, 210)
-        direction = random.choice([-1, 1])
-        direction_text = "向左" if direction == -1 else "向右"
-        print(f"[PDI执行者] 计算{direction_text}移动 {move_distance} 像素的目标位置...")
-        current_pos = pyautogui.position()
-        target_x = current_pos.x + (move_distance * direction)
-        target_y = current_pos.y
-        self.human_like_move_to(target_x, target_y, duration=0.5)
-        time.sleep(random.uniform(0.3, 0.5))
-        self.human_like_press('e')
+        time.sleep(random.uniform(0.4, 0.5))
+        #move_distance = random.randint(190, 210)
+        #direction = random.choice([-1, 1])
+        #direction_text = "向左" if direction == -1 else "向右"
+        #print(f"[PDI执行者] 计算{direction_text}移动 {move_distance} 像素的目标位置...")
+        #current_pos = pyautogui.position()
+        #target_x = current_pos.x + (move_distance * direction)
+        #target_y = current_pos.y
+        #self.human_like_move_to(target_x, target_y, duration=0.5)
+        #time.sleep(random.uniform(0.3, 0.5))
+        #self.human_like_press('e')
         print("\n--- [PDI执行者] 游戏内动作序列执行完毕！ ---")
     def click(self):
         pydirectinput.click()
