@@ -86,7 +86,6 @@ class Logger:
 class OCRWatcher:
     """
     一个负责监控屏幕特定区域并使用EasyOCR识别文字的类。
-    它是整个自动化流程的“眼睛”。
     """
     def __init__(self, similarity_threshold=0.8):
         """
@@ -171,7 +170,7 @@ class ActionExecutor:
     def human_like_press(self, key):
         """
         模拟人类按下并释放按键的行为，中间有短暂的随机延迟。
-        :param key: 要按下的键（例如 'w', 'shift'）。
+        :param key: 要按下的键（例如 'shift'）。
         """
         pydirectinput.keyDown(key)
         time.sleep(random.uniform(0.06, 0.14)) # 模拟按键按下的时长
@@ -326,12 +325,12 @@ class GameExiter:
         print("\n--- [退出者] 开始执行退出流程 ---")
         # 1. 按下 'esc' 键打开菜单
         self.executor.human_like_press('esc')
-        time.sleep(random.uniform(0.5, 1.0))
+        time.sleep(random.uniform(0.2, 0.3))
         
         # 2. 循环执行预设的点击步骤（例如：点击“离开比赛”，然后点击“确认”）
         for step in self.steps:
             self.find_and_click_button(step['text'], step['region'])
-            time.sleep(random.uniform(0.5, 1.0))
+            time.sleep(random.uniform(0.2, 0.3))
             
         # 3. 执行一系列按键来跳过结算画面（这些按键是针对特定游戏设计的）
         print("[退出者] 执行键盘快捷键以跳过结算...")
