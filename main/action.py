@@ -3,6 +3,7 @@
 # ==============================================================================
 # 0. 导入所有需要的库
 # ==============================================================================
+import winsound
 import time
 import random
 import sys
@@ -76,7 +77,15 @@ class Logger:
         """
         self.log.close()
 
-
+def countdown_second(seconds):
+    print(f"程序会在{seconds} s后运行,请切换到英雄精通难度选择界面")
+    times = 0
+    for i in range(seconds,0,-1):
+        times += 1
+        print(f"倒计时 {i} s")
+        factor_frequency = 150
+        winsound.Beep(200 + factor_frequency * times, 800)
+        time.sleep(1)
 # ==============================================================================
 # 6. 主程序入口
 # ==============================================================================
@@ -103,7 +112,8 @@ if __name__ == '__main__':
         
         # --- 2. 准备开始 ---
         print("程序将在5秒后开始......请切换到游戏窗口。")
-        time.sleep(5)
+        sleep_seconds = 5
+        countdown_second(sleep_seconds)
 
         run_count = 0
         log_filename = "num.log" # 这个文件只记录运行轮次
