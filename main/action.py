@@ -120,7 +120,7 @@ class OCRWatcher:
         # 使用EasyOCR读取处理后的图像中的文字
         return self.reader.readtext(threshold_img) 
 
-    def wait_for_text(self, target_text, monitor_region, retry_interval=1.25):
+    def wait_for_text(self, target_text, monitor_region, retry_interval=0.75):
         """
         持续监控一个区域，直到识别出的文字与目标文字足够相似。
         :param target_text: 等待出现的目标文字。
@@ -173,7 +173,7 @@ class ActionExecutor:
         :param key: 要按下的键（例如 'shift'）。
         """
         pydirectinput.keyDown(key)
-        time.sleep(random.uniform(0.06, 0.14)) # 模拟按键按下的时长
+        time.sleep(random.uniform(0.2, 0.3)) # 模拟按键按下的时长
         pydirectinput.keyUp(key)
         print(f"[PDI执行者] 模拟人类按下按键: {key}")
 
@@ -233,12 +233,12 @@ class PyAutoGuiExecutor:
     游戏外（菜单/UI）动作执行者。
     使用 pyautogui 库，它对于标准的窗口和UI界面操作非常可靠。
     """
-    def human_like_move_to(self, target_x, target_y, duration=0.5):
+    def human_like_move_to(self, target_x, target_y, duration=0.15):
         """
         使用pyautogui平滑地移动鼠标到目标坐标。
         :param target_x: 目标X坐标。
         :param target_y: 目标Y坐标。
-        :param duration: 移动持续时间。
+        :param duration: 鼠标移动持续时间。
         """
         # pyautogui.easeOutQuad 是一种缓动函数，使移动开始快，结束慢，更自然
         pyautogui.moveTo(target_x, target_y, duration=duration, tween=pyautogui.easeOutQuad)
@@ -338,7 +338,7 @@ class GameExiter:
         self.executor.human_like_press('space')
         self.executor.human_like_press('space')
         print("[退出者] 等待结算动画...")
-        time.sleep(random.uniform(2.5, 3.5)) 
+        time.sleep(random.uniform(0.3, 0.4)) 
         print("[退出者] 按下空格键以重新聚焦按钮...")
         time.sleep(random.uniform(0.2, 0.4)) 
         self.executor.human_like_press('space')
@@ -429,7 +429,7 @@ if __name__ == '__main__':
             timestamp_str = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
             log_entry = f"{timestamp_str}\t{run_count}"
             
-            # 将当前轮次写入num.log文件（注意'w'模式会覆盖旧内容）
+            # 将当前轮次写入num.log文件（'w'模式会覆盖旧内容）
             with open(log_filename, 'w') as f:
                 f.write(log_entry)
             
@@ -438,7 +438,7 @@ if __name__ == '__main__':
             # 每运行40轮，就休息60秒
             if run_count > 0 and run_count % 40 == 0:
                 print(f"已连续运行 {run_count} 轮，程序将休息 60 秒后开始下一轮...")
-                time.sleep(60)
+                time.sleep(40)
             
     except KeyboardInterrupt:
         # 如果用户在控制台按下了 Ctrl+C
